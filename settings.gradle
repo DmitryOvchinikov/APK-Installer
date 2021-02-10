@@ -1,0 +1,3 @@
+include ':APK-Installer'
+include ':app'
+rootProject.name = "APK-Installer"
