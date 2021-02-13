@@ -2,7 +2,7 @@
 
 ## Usage
 A library to install an APK programmatically via a direct link to a download.
-The library will work with only with direct links to a download, or if the direct link was substituted by the server (301 Moved Permanently, 307, 308).
+The library will work only with direct links to a download, or if the direct link was substituted by the server (301 Moved Permanently, 307, 308).
 
 ## Integration  
   Add it in your root build.gradle at the end of repositories:
