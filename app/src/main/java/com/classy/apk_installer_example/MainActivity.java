@@ -3,6 +3,7 @@ package com.classy.apk_installer_example;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         example_text = findViewById(R.id.example_text);
         progressBar = findViewById(R.id.example_progress_bar);
-        //new APKInstall(this, this, progressBar, example_text, "https://play.google.com/store/apps/details?id=com.netflix.mediaclient").execute();
-        new APKInstall(this, this, progressBar, example_text, "https://www.getjar.com/download/984552/281107/?t=1613142062").execute();
+        new APKInstall(this, this, progressBar, example_text, "https://www.apkmirror.com/wp-content/themes/APKMirror/download.php?id=1968520").execute();
+        //new APKInstall(this, this, progressBar, example_text, "https://www.getjar.com/download/984552/281107/?t=1613142062").execute();
     }
 }

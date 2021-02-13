@@ -17,10 +17,13 @@
         />
     <ProgressBar
         android:id="@+id/example_progress_bar"
-        android:layout_width="100dp"
+        android:layout_width="300dp"
         android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:visibility="invisible"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progress="0"
+
         />
 
 
