@@ -41,6 +41,7 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
         this.text = textView;
         this.url_string = url_string;
         bar.setVisibility(View.VISIBLE);
+        bar.setMax(100);
     }
 
     @Override
@@ -53,7 +54,6 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
             c.setRequestMethod("GET");
             c.setDoOutput(false);
             c.connect();
-//            String PATH = Environment.getExternalStorageDirectory() + "/Download/";
             File file = new File(PATH);
             file.mkdirs();
             File outputFile = new File(file, "app.apk");
@@ -62,12 +62,11 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
             }
             FileOutputStream fos = new FileOutputStream(outputFile);
             InputStream is = c.getInputStream();
-            //int total_size = 4581692;
             int total_size = c.getContentLength();
             byte[] buffer = new byte[1024];
             int len1 = 0;
             int per = 0;
-            int downloaded = 0;
+            long downloaded = 0;
             while ((len1 = is.read(buffer)) != -1) {
                 fos.write(buffer, 0, len1);
                 downloaded += len1;
@@ -76,7 +75,6 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
             }
             fos.close();
             is.close();
-            //installAPK(PATH);
             flag = true;
         } catch (Exception e) {
             Log.e("AAAT", "Update Error: " + e.getMessage());
@@ -94,7 +92,6 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
             url_string = huc.getHeaderField("Location");
             url_string = url_string.replaceFirst("http", "https");
         }
-        Log.d("AAAT", url_string);
         return url_string;
     }
 
@@ -104,7 +101,6 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, "application/vnd.android.package-archive");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         context.startActivity(intent);
     }
@@ -113,10 +109,9 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
     protected void onPreExecute() {
         Log.d("AAAT", "onPreExecute: ");
         super.onPreExecute();
-        bar = new ProgressBar(activity);
-        text.setText("Connecting...");
+        //bar = new ProgressBar(context);
+        text.setText(R.string.download_connect);
         bar.setIndeterminate(false);
-        bar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -124,11 +119,11 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
         Log.d("AAAT", "onProgressUpdate: " + progress[0]);
         super.onProgressUpdate(progress);
         bar.setIndeterminate(false);
-        bar.setMax(100);
         bar.setProgress(progress[0]);
         String msg = "";
         if (progress[0] > 99) {
             msg = "Finishing... ";
+            bar.setVisibility(View.INVISIBLE);
         } else {
             msg = "Downloading... " + progress[0] + "%";
         }
@@ -138,14 +133,13 @@ public class APKInstall extends AsyncTask<String, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         Log.d("AAAT", "onPostExecute: ");
+        text.setText(R.string.install_finished);
         installAPK(PATH);
         super.onPostExecute(result);
-        activity.runOnUiThread(() -> bar.setVisibility(View.INVISIBLE));
-        Log.d("AAAT", "Done I guess... Sadge");
         if (result) {
-            Toast.makeText(activity.getApplicationContext(), "Done!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity.getApplicationContext(), "Done!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(activity.getApplicationContext(), "Error: Try Again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity.getApplicationContext(), "Error: Your URL might be to a direct download", Toast.LENGTH_SHORT).show();
         }
     }
 }

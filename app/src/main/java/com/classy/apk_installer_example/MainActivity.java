@@ -22,6 +22,5 @@ public class MainActivity extends AppCompatActivity {
         example_text = findViewById(R.id.example_text);
         progressBar = findViewById(R.id.example_progress_bar);
         new APKInstall(this, this, progressBar, example_text, "https://www.apkmirror.com/wp-content/themes/APKMirror/download.php?id=1968520").execute();
-        //new APKInstall(this, this, progressBar, example_text, "https://www.getjar.com/download/984552/281107/?t=1613142062").execute();
     }
 }
