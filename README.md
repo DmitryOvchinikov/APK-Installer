@@ -1,5 +1,7 @@
 [![](https://jitpack.io/v/DmitryOvchinikov/APK-Installer.svg)](https://jitpack.io/#DmitryOvchinikov/APK-Installer)
 
+# The library is deprecated due to AsyncTask deprecated in api level 30.
+
 ## Usage
 A library that allows you to install an APK programmatically via a direct link to a download.
 The library will work only with direct links to a download, or if the direct link was substituted by the server (301 Moved Permanently, 307, 308).
